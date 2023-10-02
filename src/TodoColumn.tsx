@@ -1,4 +1,5 @@
 import TodoItem from "./TodoItem";
+import "./TodoColumn.css";
 
 export interface TodoColumnProps {
     readonly name: string;

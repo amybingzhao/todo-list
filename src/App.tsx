@@ -1,5 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import TodoColumn from './TodoColumn';
 
@@ -21,9 +19,11 @@ function App() {
 
   return (
     <div className="App">
-      {
-        todoColumns.map(c => <TodoColumn name={c.name} items={c.items}/>)
-      }
+      <div className="App-ColumnsWrapper">
+        {
+          todoColumns.map(c => <TodoColumn name={c.name} items={c.items}/>)
+        }
+      </div>
     </div>
   );
 }

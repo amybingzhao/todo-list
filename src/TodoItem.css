@@ -1,0 +1,6 @@
+.TodoItem-wrapper {
+    margin: 1em;
+    padding: 1em;
+    border-radius: 4px;
+    background: rgb(255, 255, 255, 0.7);
+}

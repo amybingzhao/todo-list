@@ -1,0 +1,16 @@
+.TodoColumn-wrapper {
+    background: #c5f0fc;
+    flex: 1;
+    margin: 0.5em;
+    border-radius: 4px;
+}
+
+.TodoColumn-header {
+    color: #ffffff;
+    font-weight: bold;
+    background: #01566e;
+    padding: 1em;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    letter-spacing: 2px;
+}
