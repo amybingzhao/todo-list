@@ -1,10 +1,9 @@
 # To-do List
 
 ## Features
-- Overall app will have 3 columns: "To-do", "In progress", "Done"
-- Each column can hold To-do Items
+- ~~Overall app will have 3 columns: "To-do", "In progress", "Done"~~
+- ~~Each column can hold To-do Items~~
 - Items can be added and modified
-- Each item will have a column name
 - Items can be dragged to rearrange order within columns
 - When an item moves to a column, it's by default the last one
 - Items can be dragged across columns

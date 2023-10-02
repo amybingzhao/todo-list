@@ -1,5 +1,43 @@
+.App {
+  padding: 5em;
+}
+
+.App-Header {
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  line-height: 28px;
+}
+
+.App-Title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 24px;
+  flex: 1;
+}
+
+.App-NewItemButtonWrapper {
+  cursor: pointer;
+  text-align: center;
+  vertical-align: center;
+  border: 1px solid #01566e;
+  background: #c5f0fc;
+  border-radius: 4px;
+}
+
+.App-NewItemButton {
+  font-weight: bold;
+  font-size: 24px;
+  width: 28px;
+  display: block;
+  height: 28px;
+}
+.App-NewItemButtonWrapper:hover {
+  background: #01566e;
+  color: #ffffff;
+}
+
 .App-ColumnsWrapper {
   display: flex;
-  padding: 5em;
   justify-content: center;
 }
