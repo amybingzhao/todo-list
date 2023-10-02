@@ -28,7 +28,7 @@ export default function NewItemModal({isOpen, closeModal, onSubmit}: NewItemModa
                         <input className="NewItemModal-input" value={newItemContent} onChange={handleInputChange}/>
                         <div className="NewItemModal-footer">
                             <a className="NewItemModal-submitButton" onClick={() => {
-                                onSubmit({content: newItemContent})
+                                onSubmit({id: -1 /* TODO: fix this if we end up using this modal */, content: newItemContent})
                                 closeModal()
                             }}>Submit</a>
                         </div>

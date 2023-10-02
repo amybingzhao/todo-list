@@ -4,3 +4,7 @@
     border-radius: 4px;
     background: rgb(255, 255, 255, 0.7);
 }
+
+.TodoItem-content {
+    display: inline-block;
+}

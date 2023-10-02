@@ -30,7 +30,7 @@
 
 .NewItemModal-closeButton {
     border: 1px solid #01566e;
-    background: #c5f0fc;
+    background: #d7f1f8;
     border-radius: 4px;
     width: 18px;
     height: 18px;
@@ -53,7 +53,7 @@
 
 .NewItemModal-submitButton {
     border: 1px solid #01566e;
-    background: #c5f0fc;
+    background: #d7f1f8;
     border-radius: 4px;
     cursor: pointer;
     padding: 0.5em;

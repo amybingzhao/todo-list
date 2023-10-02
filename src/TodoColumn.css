@@ -1,8 +1,9 @@
 .TodoColumn-wrapper {
-    background: #c5f0fc;
+    background: #d7f1f8;
     flex: 1;
     margin: 0.5em;
     border-radius: 4px;
+    padding: 0.5em;
 }
 
 .TodoColumn-header {
@@ -10,7 +11,7 @@
     font-weight: bold;
     background: #01566e;
     padding: 1em;
-    border-radius: 4px 4px 0 0;
+    border-radius: 4px;
     text-align: center;
     letter-spacing: 2px;
 }
