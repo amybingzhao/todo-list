@@ -1,7 +1,7 @@
 import './App.css';
 import TodoColumn from './TodoColumn';
 import { useState } from "react";
-import NewItemModal from './NewItemModal';
+import {DndContext} from '@dnd-kit/core';
 
 function App() {
   const initialToDoColumns = [
@@ -19,7 +19,6 @@ function App() {
     }
   ]
 
-  const [ isNewItemModalOpen, setNewItemModalOpen ] = useState(false)
   const [ todoColumns, setNewTodoColumns ] = useState(initialToDoColumns)
     // [
     //   {
@@ -40,22 +39,45 @@ function App() {
     const updatedColumns = todoColumns.map(c => c.name == columnName ? { name: columnName, items: updatedItems } : {...c})
     setNewTodoColumns(updatedColumns)
   }
+  const [activeTaskId, setActiveTaskId] = useState<null | number>(null);
+
 
   return (
     <div className="App">
       <div className="App-Header">
         <div className="App-Title">To-do List</div>
-        <div className="App-NewItemButtonWrapper">
-          <a className="App-NewItemButton" onClick={() => setNewItemModalOpen(true)}>+</a>
+      </div>
+      <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+        <div className="App-ColumnsWrapper">
+          {
+            todoColumns.map(c => <TodoColumn updateItems={updateItems} name={c.name} items={c.items}/>)
+          }
         </div>
-      </div>
-      <div className="App-ColumnsWrapper">
-        {
-          todoColumns.map(c => <TodoColumn updateItems={updateItems} name={c.name} items={c.items}/>)
-        }
-      </div>
+      </DndContext>
     </div>
   );
+
+  // @ts-ignore
+  function handleDragStart({active}: DragStartEvent) {
+    setActiveTaskId(active.id as number);
+  }
+
+  // @ts-ignore
+  function handleDragEnd(event: DragEndEvent) {
+    if (event.over) {
+      const originalColumn = todoColumns.filter(c => c.items.filter(i => i.id == activeTaskId).length > 0)[0]
+      const newColumn = todoColumns.filter(c => c.name == event.over.id)[0]
+
+      const taskToMove = originalColumn.items.filter(i => i.id == activeTaskId)[0]
+      const taskToMoveIndex = originalColumn.items.indexOf(taskToMove)
+      originalColumn.items.splice(taskToMoveIndex, 1)
+      const updatedOriginalColumn = {...originalColumn, items: [...originalColumn.items]}
+      const updatedNewColumn = { ...newColumn, items: [...newColumn.items, taskToMove]}
+      const updatedTodoColumns = todoColumns.map(c => c.name === originalColumn.name ? updatedOriginalColumn : c.name === newColumn.name ? updatedNewColumn : {...c})
+      setActiveTaskId(null)
+      setNewTodoColumns(updatedTodoColumns)
+    }
+  }
 }
 
 export default App;

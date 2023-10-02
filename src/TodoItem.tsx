@@ -1,3 +1,4 @@
+import { useDraggable } from '@dnd-kit/core';
 import { useState, useEffect, useRef } from "react";
 import "./TodoItem.css";
 
@@ -8,26 +9,33 @@ export interface TodoItemProps {
 }
 
 export default function TodoItem({id, content, updateContent}: TodoItemProps) {
-    const [ draftContent, updateDraftContent ] = useState(content)
     const contentRef = useRef<HTMLDivElement>(null);
-    
+    const {attributes, listeners, setNodeRef, transform} = useDraggable({
+        id: id,
+    });
+    const style = transform ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        cursor: "grabbing",
+      } : undefined;
+
     useEffect(() => {
         const selection = window.getSelection()
-        selection?.setPosition(contentRef.current?.childNodes[0] || null, draftContent.length);
-    }, [draftContent])
+        selection?.setPosition(contentRef.current?.childNodes[0] || null, content.length);
+    }, [content])
 
-    return <div className="TodoItem-wrapper">
-        <div className="TodoItem-content" 
-            contentEditable="true" 
-            ref={contentRef}
-            onFocus={() => {
-                const selection = window.getSelection()
-                selection?.setPosition(contentRef.current?.childNodes[0] || null, draftContent.length);
-            }}
-            onInput={e => {updateDraftContent(e.currentTarget.textContent || ""); e.preventDefault()}}
-            onBlur={e => {
-                updateContent(id, draftContent)}}>
-            {draftContent}
+    return (
+        <div className="TodoItem-wrapper"
+            ref={setNodeRef}
+            style={style} {...listeners} {...attributes}>
+            <div className="TodoItem-content" 
+                contentEditable="true" 
+                ref={contentRef}
+                onInput={e => {
+                    updateContent(id, e.currentTarget.textContent || "")
+                }}
+                data-text="Start typing">
+                {content}
+            </div>
         </div>
-    </div>
+    )
 }
