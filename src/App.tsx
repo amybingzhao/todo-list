@@ -67,15 +67,16 @@ function App() {
     if (event.over) {
       const originalColumn = todoColumns.filter(c => c.items.filter(i => i.id == activeTaskId).length > 0)[0]
       const newColumn = todoColumns.filter(c => c.name == event.over.id)[0]
-
-      const taskToMove = originalColumn.items.filter(i => i.id == activeTaskId)[0]
-      const taskToMoveIndex = originalColumn.items.indexOf(taskToMove)
-      originalColumn.items.splice(taskToMoveIndex, 1)
-      const updatedOriginalColumn = {...originalColumn, items: [...originalColumn.items]}
-      const updatedNewColumn = { ...newColumn, items: [...newColumn.items, taskToMove]}
-      const updatedTodoColumns = todoColumns.map(c => c.name === originalColumn.name ? updatedOriginalColumn : c.name === newColumn.name ? updatedNewColumn : {...c})
+      if (originalColumn !== undefined && newColumn != undefined && originalColumn.name != newColumn.name) {
+        const taskToMove = originalColumn.items.filter(i => i.id == activeTaskId)[0]
+        const taskToMoveIndex = originalColumn.items.indexOf(taskToMove)
+        originalColumn.items.splice(taskToMoveIndex, 1)
+        const updatedOriginalColumn = {...originalColumn, items: [...originalColumn.items]}
+        const updatedNewColumn = { ...newColumn, items: [...newColumn.items, taskToMove]}
+        const updatedTodoColumns = todoColumns.map(c => c.name === originalColumn.name ? updatedOriginalColumn : c.name === newColumn.name ? updatedNewColumn : {...c})
+        setNewTodoColumns(updatedTodoColumns)
+      }
       setActiveTaskId(null)
-      setNewTodoColumns(updatedTodoColumns)
     }
   }
 }

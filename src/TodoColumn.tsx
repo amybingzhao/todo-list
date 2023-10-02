@@ -16,7 +16,11 @@ export default function TodoColumn({ name, items, updateItems }: TodoColumnProps
         let updatedItems;
         if (id == -1) {
             // TODO replace this with actual id generation code
-            updatedItems = [...items, { id: Math.floor(Math.random() * 1000000), content: updatedContent }]
+            if (updatedContent.length > 0) {
+               updatedItems = [...items, { id: Math.floor(Math.random() * 1000000), content: updatedContent }]
+            } else {
+                updatedItems = [...items]
+            }
         } else {
             updatedItems = items.map(i => i.id == id ? {...i, content: updatedContent } : {...i})
         }

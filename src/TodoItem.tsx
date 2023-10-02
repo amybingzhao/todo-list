@@ -10,8 +10,11 @@ export interface TodoItemProps {
 
 export default function TodoItem({id, content, updateContent}: TodoItemProps) {
     const contentRef = useRef<HTMLDivElement>(null);
+    const [isEditing, setIsEditing] = useState(false)
+    
     const {attributes, listeners, setNodeRef, transform} = useDraggable({
         id: id,
+        disabled: isEditing
     });
     const style = transform ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
@@ -22,7 +25,9 @@ export default function TodoItem({id, content, updateContent}: TodoItemProps) {
         const selection = window.getSelection()
         selection?.setPosition(contentRef.current?.childNodes[0] || null, content.length);
     }, [content])
-
+    useEffect(() => {
+       contentRef.current?.focus();
+    }, [])
     return (
         <div className="TodoItem-wrapper"
             ref={setNodeRef}
@@ -30,6 +35,9 @@ export default function TodoItem({id, content, updateContent}: TodoItemProps) {
             <div className="TodoItem-content" 
                 contentEditable="true" 
                 ref={contentRef}
+                onFocus={() => setIsEditing(true)}
+                onBlur={(e) => {
+                    setIsEditing(false); updateContent(id, e.currentTarget.textContent || "")}}
                 onInput={e => {
                     updateContent(id, e.currentTarget.textContent || "")
                 }}
